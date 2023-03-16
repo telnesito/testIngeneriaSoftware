@@ -33,28 +33,20 @@ const EditorConsola = () => {
 
   return (
     <div>
-      <div className='contenedor-consola'>
-        <form>
-          <textarea placeholder='Insert your console code' id="code" onKeyUp={() => ejecutar()}></textarea>
-        </form>
-        <div id="output"></div>
+      <div className='contenedor-editor-consola'>
+        <div className='contenedor-consola'>
+          <form>
+            <textarea placeholder='Insert your console code' id="code" onKeyUp={() => ejecutar()}></textarea>
+          </form>
+          <div id="output"></div>
+        </div>
+
+        <div>
+        </div>
       </div>
-      <p>
-        <b>Ejemplos de codigo:</b> <br />
-        <pre>
-          console.log('hola') <br />
-          console.log(2+2) <br />
-          const salidaArray = (...numeros) => numeros.forEach((n)=> console.log(n))
-          <br />
-          salidaArray(3,4) <br />
-          const sum = (...args) => args.reduce((acc, val) => acc + val, 0);
-          <br />
-          console.log(sum(3,2,5,6))
-
-        </pre>
 
 
-      </p>
+
     </div>
   )
 }

@@ -6,9 +6,9 @@ const BarraNavegacion = () => {
   return (
     <nav className='nav'>
 
-      <p onClick={() => navigate('/')}>Editor Web</p>
-      <p onClick={() => navigate('/editor-consola')}>Editor Consola</p>
-
+      <p onClick={() => navigate('/')}>Web</p>
+      <p onClick={() => navigate('/editor-ruby')}>Ruby</p>
+      <p onClick={() => navigate('/editor-consola')}>Consola</p>
 
 
 

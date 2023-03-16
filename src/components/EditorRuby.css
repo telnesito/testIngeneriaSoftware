@@ -1,25 +1,26 @@
-#code {
-  max-width: 500px;
+#editor-ruby {
+  width: 500px;
   height: 200px;
   resize: none;
-  width: 500px;
+  /* max-width: 50%; */
 }
 
 code {
   overflow: auto;
 }
 
-#output {
+#output-ruby {
   background-color: rgb(255, 255, 255);
-  max-width: 50%;
   height: 200px;
   resize: none;
   width: 500px;
+  /* margin-right: 20px; */
+  max-width: 50%;
   color: black;
   overflow: auto;
 }
 
-.contenedor-consola {
+.contenedor-ruby {
   display: flex;
   width: 100vw;
   align-items: center;
@@ -28,22 +29,14 @@ code {
 }
 
 @media (max-width: 800px) {
-  #code,
-  #output,
+  #editor-ruby,
+  #output-ruby,
   code {
     min-width: 80vw;
     max-width: 80vw;
   }
 
-  .contenedor-editor-consola {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .contenedor-consola {
+  .contenedor-ruby {
     display: flex;
     flex-direction: column;
     gap: 30px;

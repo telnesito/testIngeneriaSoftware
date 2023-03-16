@@ -4,6 +4,7 @@ import './App.css'
 import EditorPage from './pages/EditorPage'
 import EditorCodigo from './components/EditorCodigo'
 import EditorConsola from './components/EditorConsola'
+import EditorRuby from './components/EditorRuby'
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
 
           <Route path='' element={<EditorCodigo />} />
           <Route path='editor-consola' element={<EditorConsola />} />
-
+          <Route path='editor-ruby' element={<EditorRuby />} />
         </Route>
 
 
