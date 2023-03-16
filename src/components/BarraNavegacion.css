@@ -1,0 +1,25 @@
+.nav {
+  width: 100vw;
+  height: 60px;
+  position: sticky;
+  background-color: aliceblue;
+  top: 0;
+  color: black;
+  display: flex;
+  gap: 10px;
+}
+
+.nav p {
+  text-align: center;
+  background-color: rgb(249, 171, 135);
+  padding: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.nav p:hover {
+  background-color: rgba(249, 171, 135, 0.644);
+}
+body {
+  margin: 0;
+}

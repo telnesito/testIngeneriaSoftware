@@ -1,0 +1,33 @@
+#html,
+#css,
+#js {
+  max-width: 500px;
+  height: 200px;
+  resize: none;
+  width: 500px;
+}
+
+.contenedor-all {
+  display: flex;
+  gap: 50px;
+}
+
+.iframe {
+  width: 500px;
+  max-width: 500px;
+  height: 620px;
+}
+
+@media (max-width: 800px) {
+  #html,
+  #css,
+  #js,
+  .iframe {
+    min-width: 80vw;
+    max-width: 80vw;
+  }
+
+  .contenedor-all {
+    flex-direction: column;
+  }
+}

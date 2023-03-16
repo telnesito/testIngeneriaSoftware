@@ -1,0 +1,39 @@
+#code {
+  max-width: 500px;
+  height: 200px;
+  resize: none;
+  width: 500px;
+}
+
+pre {
+  overflow: auto;
+}
+
+#output {
+  background-color: rgb(255, 255, 255);
+  max-width: 500px;
+  height: 200px;
+  resize: none;
+  width: 500px;
+  color: black;
+}
+
+.contenedor-consola {
+  display: flex;
+  gap: 30px;
+}
+
+@media (max-width: 800px) {
+  #code,
+  #output,
+  pre {
+    min-width: 80vw;
+    max-width: 80vw;
+  }
+
+  .contenedor-consola {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
