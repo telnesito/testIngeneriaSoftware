@@ -28,8 +28,8 @@ const EditorCodigo = () => {
 
   const handleUpdate = () => {
 
-    const html = CrearEstructura()
 
+    const html = CrearEstructura()
     refIframe.current.setAttribute('srcDoc', html)
 
   }

@@ -1,13 +1,28 @@
-import React from 'react'
-import './EditorConsola.css'
+import React, { useRef, useEffect, useState } from 'react';
+import './EditorConsola.css';
+import editorSettings from '../functions/editorSettings';
+import javaScriptWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
+
 
 const EditorConsola = () => {
 
+  const [codigo, setCodigo] = useState("");
+
+
+  window.MonacoEnvironment = {
+    getWorker(workerId, label) {
+      if (label === 'javascript') {
+        return new javaScriptWorker
+      }
+
+    }
+  }
+
+  const refCode = useRef();
 
   let salida = "";
 
   function ejecutar() {
-    var codigo = document.getElementById("code").value;
 
     salida = ""; // Reinicia la variable salida en cada ejecución
 
@@ -31,12 +46,16 @@ const EditorConsola = () => {
 
   console.log = consoleLog;
 
+  useEffect(() => {
+    editorSettings('', 'javascript', 'vs-dark', refCode.current, setCodigo)
+  }, []);
+
   return (
     <div>
       <div className='contenedor-editor-consola'>
         <div className='contenedor-consola'>
           <form>
-            <textarea placeholder='Insert your console code' id="code" onKeyUp={() => ejecutar()}></textarea>
+            <div onKeyUp={() => ejecutar()} ref={refCode} id='code'></div>
           </form>
           <div id="output"></div>
         </div>
@@ -44,11 +63,8 @@ const EditorConsola = () => {
         <div>
         </div>
       </div>
-
-
-
     </div>
   )
 }
 
-export default EditorConsola
+export default EditorConsola;

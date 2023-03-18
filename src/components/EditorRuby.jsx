@@ -1,12 +1,24 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import './EditorRuby.css'
+import editorSettings from '../functions/editorSettings'
+import rubyWorker from 'monaco-editor/esm/vs/basic-languages/ruby/ruby?worker';
 
 const EditorRuby = () => {
   //Variable que guarda lo que mostrara en pantalla
   let salida = ''
   //Referencia del DOM
-  const refCode = useRef()
+  const [codigo, setCodigo] = useState("")
   const refOutput = useRef()
+  const refCode = useRef()
+
+  window.MonacoEnvironment = {
+    getWorker(workerId, label) {
+      if (label === 'ruby') {
+        return new rubyWorker
+      }
+
+    }
+  }
 
   //Funcion que remplaza el console.log para mostrar los parametros por pantalla 
   const puts = (...argumentos) => {
@@ -18,8 +30,6 @@ const EditorRuby = () => {
   //Manejador
   const handleUpdate = () => {
 
-    let codigoRuby = refCode.current.value
-
     try {
       //Reiniciamos la salida y re-asignamos console.log
       salida = ''
@@ -27,7 +37,7 @@ const EditorRuby = () => {
 
       //Compilamos y ejecutmos el codigo Ruby con Opal
 
-      let output = Opal.compile(codigoRuby)
+      let output = Opal.compile(codigo)
       eval(output)
 
       //Mostrar salida en pantalla
@@ -42,13 +52,17 @@ const EditorRuby = () => {
     }
   }
 
+  useEffect(() => {
+    editorSettings('', 'ruby', 'vs-dark', refCode.current, setCodigo)
+  }, []);
+
 
   return (
     <div>
 
       <div className='contenedor-ruby'>
         <label >
-          <textarea placeholder='Insert your ruby code' ref={refCode} onKeyUp={() => handleUpdate()} id='editor-ruby'></textarea>
+          <div ref={refCode} onKeyUp={() => handleUpdate()} id='editor-ruby'></div>
         </label>
 
         <div ref={refOutput} id='output-ruby'></div>
