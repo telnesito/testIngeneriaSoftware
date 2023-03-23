@@ -38,7 +38,6 @@ const EditorCodigo = () => {
 
   return (
     <div className='contenedor-all'>
-
       <div className='contenedor-editor'>
         <div>
           <label>
