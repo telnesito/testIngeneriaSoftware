@@ -33,7 +33,8 @@ const EditorConsola = () => {
         document.getElementById("output").innerHTML = salida;
       }
     } catch (e) {
-      document.getElementById("output").innerHTML = e.message;
+      document.getElementById("output").innerHTML = e;
+
     }
   }
 
@@ -52,8 +53,11 @@ const EditorConsola = () => {
 
   return (
     <div>
+      <h2>JavaScript Consola</h2>
       <div className='contenedor-editor-consola'>
+
         <div className='contenedor-consola'>
+
           <form>
             <div onKeyUp={() => ejecutar()} ref={refCode} id='code'></div>
           </form>

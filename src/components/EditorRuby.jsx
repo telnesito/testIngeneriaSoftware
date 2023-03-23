@@ -48,6 +48,7 @@ const EditorRuby = () => {
 
     } catch (e) {
       refOutput.current.innerHTML = e.message
+      console.warn(e)
 
     }
   }
@@ -59,7 +60,7 @@ const EditorRuby = () => {
 
   return (
     <div>
-
+      <h2>Compilador Ruby</h2>
       <div className='contenedor-ruby'>
         <label >
           <div ref={refCode} onKeyUp={() => handleUpdate()} id='editor-ruby'></div>

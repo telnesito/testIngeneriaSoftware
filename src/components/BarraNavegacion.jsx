@@ -10,6 +10,9 @@ const BarraNavegacion = () => {
       <p onClick={() => navigate('/editor-web')}>Web</p>
       <p onClick={() => navigate('/editor-ruby')}>Ruby</p>
       <p onClick={() => navigate('/editor-consola')}>Consola</p>
+      <p onClick={() => navigate('/editor-js-component')}>Component</p>
+      <p onClick={() => navigate('/editor-python')}>Python</p>
+
 
 
 
