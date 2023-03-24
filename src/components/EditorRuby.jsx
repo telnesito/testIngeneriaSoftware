@@ -13,6 +13,8 @@ const EditorRuby = () => {
   const refOutput = useRef()
   const refCode = useRef()
 
+  const [autoCompile, setAutoCompile] = useState('true')
+
   window.MonacoEnvironment = {
     getWorker(workerId, label) {
       if (label === 'ruby') {
@@ -55,6 +57,14 @@ const EditorRuby = () => {
     }
   }
 
+  const validateAutoCompile = () => {
+    if (autoCompile === 'true') {
+      handleUpdate()
+    } else {
+      return
+    }
+  }
+
   useEffect(() => {
     editorSettings(savedItem, 'ruby', 'vs-dark', refCode.current, setCodigo)
   }, []);
@@ -68,15 +78,31 @@ const EditorRuby = () => {
       <h2>Compilador Ruby</h2>
       <div className='contenedor-ruby'>
         <label >
-          <div ref={refCode} onKeyUp={() => handleUpdate()} id='editor-ruby'></div>
+          <div ref={refCode} onKeyUp={() => validateAutoCompile()} id='editor-ruby'></div>
         </label>
 
         <div ref={refOutput} id='output-ruby'></div>
       </div>
-      <button className='btn' onClick={handleSave}>Guardar en localStorage</button>
+
+      <div className='btn'>
+        <input defaultChecked onChange={({ target }) => setAutoCompile(target.value)} type={'radio'} name={'auto-compile-ruby'} id={'ruby-true'} value={'true'}></input>
+        <label htmlFor='ruby-true'>Compilado automatico</label>
+        <br />
 
 
-    </div>
+        <input onChange={({ target }) => setAutoCompile(target.value)} type={'radio'} name={'auto-compile-ruby'} id={'ruby-false'} value={'false'}></input>
+        <label htmlFor='ruby-false'>Compilado manual</label>
+        <br />
+        <br />
+
+        <button className='btn-compilar' onClick={handleUpdate} >Compilar</button>
+        <br />
+        <br />
+        <button className='btn-save' onClick={handleSave}>Guardar en localStorage</button>
+      </div>
+
+
+    </div >
   )
 }
 

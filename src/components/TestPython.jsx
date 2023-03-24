@@ -7,28 +7,14 @@ const TestPython = () => {
 
 
   const [savedItem,] = useState(() => window.localStorage.getItem('code-python'))
+  const [autoCompile, setAutoCompile] = useState('true')
   // Manipulacion DOM
   const editorRef = useRef(null)
   const outputRef = useRef()
   //Variable que recibe los parametros del console log
-  let salida = ''
-  let codigo = ''
+  let salida = '';
 
   //Libreria para compilar python
-  const compileCode = async () => {
-    codigo = editorRef.current.getValue()
-    // Recibe el codigo a compilar
-
-    try {
-      await runCode(codigo);
-
-    } catch (error) {
-      console.warn(error)
-      outputRef.current.innerHTML = `Linea: ${error.lineNumber}, mensaje: ${error.message}`
-
-    }
-  }
-
   //Configurar el compilador
   const settingsPython = async () => {
     // Opciones del compilador
@@ -42,17 +28,23 @@ const TestPython = () => {
   }
 
   // Mostrar codigo en pantalla
-  const handleShowCode = () => {
+  const handleShowCode = async () => {
+
+    const codigo = editorRef.current.getValue()
 
     try {
-      salida = '' //Reiniciar la variable
-      compileCode()
-      if (codigo !== '') outputRef.current.innerHTML = salida
+      //Recibe el codigo a compilar
+      salida = ''
+      await runCode(codigo);
+      if (codigo !== '') {
+        outputRef.current.innerHTML = salida
+      }
 
     } catch (error) {
-      outputRef.current.innerHTML = error.message
+      outputRef.current.innerHTML = `Linea: ${error.lineNumber}, mensaje: ${error.message}`
     }
   }
+
 
   // Obtener la instancia del editor
   const handleOnMount = (editor, monaco) => {
@@ -60,22 +52,30 @@ const TestPython = () => {
     editorRef.current = editor
   }
 
-  //Redefinir el console.log
-  const consoleLog = (...argumentos) => {
-
-    argumentos.forEach((arg) => {
-      salida += arg
-    })
-    salida += "<br/>"
-  }
-
-  console.log = consoleLog
-  console.error = consoleLog
 
   const handleSave = () => {
     saveLocalStorage('code-python', editorRef.current.getValue())
   }
 
+  const validAutoCompile = () => {
+    if (autoCompile === 'true') {
+      handleShowCode()
+    } else {
+      return
+    }
+  }
+
+  //Redefinir el console.log
+  function consoleLog(...argumentos) {
+
+    argumentos.forEach((arg) => {
+      salida += arg
+    })
+    salida += '<br/>'
+
+  }
+
+  console.log = consoleLog
   return (
     <div>
       <h2>Python</h2>
@@ -85,12 +85,22 @@ const TestPython = () => {
         theme={'vs-dark'}
         language={'python'}
         onMount={handleOnMount}
-        onChange={handleShowCode}
+        onChange={validAutoCompile}
         value={savedItem}
       />
       <div ref={outputRef} id='output-python'></div>
 
-      <button onClick={handleSave}>Guardar en localStorage</button>
+      <input defaultChecked onChange={({ target }) => setAutoCompile(target.value)} type={'radio'} name={'auto-compile-python'} id={'python-true'} value={'true'}></input>
+      <label htmlFor='python-true'>Compilado automatico</label>
+      <br />
+      <input onChange={({ target }) => setAutoCompile(target.value)} type={'radio'} name={'auto-compile-python'} id={'python-false'} value={'false'}></input>
+      <label htmlFor='python-false'>Compilado manual</label>
+      <br />
+      <div className='group-btn'>
+        <button className='btn-compilar' onClick={handleShowCode}>Compilar</button>
+        <button className='btn-save' onClick={handleSave}>Guardar en localStorage</button>
+
+      </div>
 
     </div>
   )
