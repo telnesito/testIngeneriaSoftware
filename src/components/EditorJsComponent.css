@@ -1,0 +1,26 @@
+.group-btn {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.btn-compilar,
+.btn-save {
+  border: none;
+  padding: 5px;
+}
+
+.btn-compilar:hover {
+  background-color: rgba(255, 0, 0, 0.599);
+}
+.btn-save:hover {
+  background-color: rgba(0, 128, 0, 0.585);
+}
+
+.btn-compilar {
+  background-color: red;
+}
+
+.btn-save {
+  background-color: green;
+}

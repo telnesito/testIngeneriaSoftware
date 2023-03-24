@@ -8,6 +8,10 @@
 code {
   overflow: auto;
 }
+.btn {
+  position: absolute;
+  left: 15%;
+}
 
 #output-ruby {
   background-color: rgb(255, 255, 255);

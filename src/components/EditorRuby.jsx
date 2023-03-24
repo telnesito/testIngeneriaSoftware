@@ -2,12 +2,14 @@ import React, { useRef, useEffect, useState } from 'react'
 import './EditorRuby.css'
 import editorSettings from '../functions/editorSettings'
 import rubyWorker from 'monaco-editor/esm/vs/basic-languages/ruby/ruby?worker';
+import saveLocalStorage from '../functions/saveLocalStorage';
 
 const EditorRuby = () => {
   //Variable que guarda lo que mostrara en pantalla
   let salida = ''
   //Referencia del DOM
-  const [codigo, setCodigo] = useState("")
+  const [savedItem,] = useState(window.localStorage.getItem('code-ruby'))
+  const [codigo, setCodigo] = useState(savedItem)
   const refOutput = useRef()
   const refCode = useRef()
 
@@ -54,9 +56,12 @@ const EditorRuby = () => {
   }
 
   useEffect(() => {
-    editorSettings('', 'ruby', 'vs-dark', refCode.current, setCodigo)
+    editorSettings(savedItem, 'ruby', 'vs-dark', refCode.current, setCodigo)
   }, []);
 
+  const handleSave = () => {
+    saveLocalStorage('code-ruby', codigo)
+  }
 
   return (
     <div>
@@ -68,6 +73,7 @@ const EditorRuby = () => {
 
         <div ref={refOutput} id='output-ruby'></div>
       </div>
+      <button className='btn' onClick={handleSave}>Guardar en localStorage</button>
 
 
     </div>

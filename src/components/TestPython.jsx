@@ -1,9 +1,12 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { runCode, setEngine, setOptions } from 'client-side-python-runner';
 import Editor from '@monaco-editor/react';
 import './TestPython.css'
+import saveLocalStorage from '../functions/saveLocalStorage';
 const TestPython = () => {
 
+
+  const [savedItem,] = useState(() => window.localStorage.getItem('code-python'))
   // Manipulacion DOM
   const editorRef = useRef(null)
   const outputRef = useRef()
@@ -69,6 +72,9 @@ const TestPython = () => {
   console.log = consoleLog
   console.error = consoleLog
 
+  const handleSave = () => {
+    saveLocalStorage('code-python', editorRef.current.getValue())
+  }
 
   return (
     <div>
@@ -80,8 +86,11 @@ const TestPython = () => {
         language={'python'}
         onMount={handleOnMount}
         onChange={handleShowCode}
+        value={savedItem}
       />
       <div ref={outputRef} id='output-python'></div>
+
+      <button onClick={handleSave}>Guardar en localStorage</button>
 
     </div>
   )

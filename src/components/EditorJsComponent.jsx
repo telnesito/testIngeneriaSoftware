@@ -1,12 +1,18 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import Editor from '@monaco-editor/react'
 import './TestPython.css'
+import saveLocalStorage from '../functions/saveLocalStorage'
+import './EditorJsComponent.css'
 
 const EditorJsComponent = () => {
 
   const editorRef = useRef(null);
   const output = useRef('')
   let salida = ''
+
+  const [savedItem,] = useState(() => window.localStorage.getItem('code-js'))
+
+  const [autoCompile, setAutoCompile] = useState("true")
 
   function handleSeMontara(monaco) {
     console.log("beforeMount: the monaco instance:", monaco);
@@ -46,6 +52,22 @@ const EditorJsComponent = () => {
     console.log("Editor:", editor, "Monaco:", monaco)
   }
 
+  const handleSave = () => {
+    saveLocalStorage('code-js', editorRef.current.getValue())
+  }
+
+  const handleChangeState = (value) => {
+    setAutoCompile(value)
+  }
+
+  const verifAutoCompile = () => {
+    if (autoCompile === "true") {
+      return showValue()
+    } else {
+      return
+    }
+  }
+
   return (
     <div>
       <h2>JavaScript (React components)</h2>
@@ -56,14 +78,24 @@ const EditorJsComponent = () => {
         language={'javascript'}
         beforeMount={handleSeMontara}
         onMount={handleEditorMontado}
-        onChange={showValue}
+        onChange={verifAutoCompile}
         loading={<h1>Sexo</h1>}
+        value={savedItem}
       />
 
       <div ref={output} id='output-python'></div>
 
+      <input defaultChecked onChange={({ target }) => handleChangeState(target.value)} type='radio' id='true' name='auto-compile' value={true}></input>
+      <label htmlFor='true'>Compilado automatico</label>
+      <br />
+      <input onChange={({ target }) => handleChangeState(target.value)} type='radio' id='false' name='auto-compile' value={false}></input>
+      <label htmlFor='false'>Compilado manual</label>
 
-    </div>
+      <div className='group-btn'>
+        <button onClick={showValue} className='btn-compilar'>Compilar</button>
+        <button className='btn-save' onClick={handleSave}>Guardar en localStorage</button>
+      </div>
+    </div >
   )
 }
 
