@@ -3,6 +3,7 @@ import { runCode, setEngine, setOptions } from 'client-side-python-runner';
 import Editor from '@monaco-editor/react';
 import './TestPython.css'
 import saveLocalStorage from '../functions/saveLocalStorage';
+let salida = '';
 const TestPython = () => {
 
 
@@ -12,7 +13,6 @@ const TestPython = () => {
   const editorRef = useRef(null)
   const outputRef = useRef()
   //Variable que recibe los parametros del console log
-  let salida = '';
 
   //Libreria para compilar python
   //Configurar el compilador
