@@ -10,8 +10,7 @@ const EditorRuby = () => {
   const { localStorage } = window
   const [savedItem, setSavedItem] = useState(localStorage.getItem('ruby-code'))
   const [savedItem2, setSavedItem2] = useState(localStorage.getItem('ruby-code-dos'))
-  const initialView = 'main'
-  const [viewState, setViewState] = useState(initialView)
+  const [viewState, setViewState] = useState('main')
 
 
 
